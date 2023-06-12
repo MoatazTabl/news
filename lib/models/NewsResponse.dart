@@ -18,6 +18,7 @@ class NewsResponse {
     message = json['message'];
     code = json['code'];
     totalResults = json['totalResults'];
+
     if (json['articles'] != null) {
       articles = [];
       json['articles'].forEach((v) {

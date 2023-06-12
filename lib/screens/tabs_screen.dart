@@ -25,7 +25,9 @@ class _TabsScreenState extends State<TabsScreen> {
         DefaultTabController(
           length: widget.sources.length,
           child: TabBar(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+            indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
+            labelPadding: const EdgeInsets.symmetric(horizontal: 4),
             indicatorColor: Colors.transparent,
             onTap: (value) {
               selectedIndex = value;
@@ -46,7 +48,7 @@ class _TabsScreenState extends State<TabsScreen> {
               return const Center(
                   child: Center(
                       child:
-                          CircularProgressIndicator(color: Color(0xFF39A552))));
+                          CircularProgressIndicator(color: Color(0xFF39A552),),),);
             }
             if (snapshot.hasError) {
               return Column(

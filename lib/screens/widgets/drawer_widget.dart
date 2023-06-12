@@ -11,7 +11,7 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.4,
+      width: MediaQuery.of(context).size.width * 0.5,
       color: Colors.white,
       child: Column(
         //crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -24,7 +24,7 @@ class DrawerWidget extends StatelessWidget {
               child: Text(
                 "News App!",
                 style: GoogleFonts.poppins(
-                    fontSize: 16,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
@@ -34,22 +34,37 @@ class DrawerWidget extends StatelessWidget {
              onTap: (){
                onDrawerSelect(category);
              },
-             child: Text("Categories",
-              style: GoogleFonts.poppins(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),),
+             child: Row(
+               children: [
+                 const Padding(
+                   padding: EdgeInsets.symmetric(horizontal: 3.0,vertical: 10),
+                   child: Icon(Icons.list),
+                 ),
+                 Text("Categories",
+                  style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),),
+               ],
+             ),
            ),
            InkWell(
              onTap: (){
                onDrawerSelect(settings);
-
              },
-             child: Text("Settings",
-              style: GoogleFonts.poppins(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),),
+             child: Row(
+               children: [
+                 const Padding(
+                   padding: EdgeInsets.symmetric(horizontal: 3.0,vertical: 10),
+                   child: Icon(Icons.settings),
+                 ),
+                 Text("Settings",
+                  style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),),
+               ],
+             ),
            ),
         ],
       ),
