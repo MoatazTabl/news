@@ -16,10 +16,10 @@ class CategoryItem extends StatelessWidget {
           color: categoryModel.color,
 
           borderRadius:  BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-            bottomRight: index.isOdd? Radius.circular(20):Radius.zero,
-            bottomLeft: index.isEven? Radius.circular(20):Radius.zero,
+            topLeft: const Radius.circular(20),
+            topRight: const Radius.circular(20),
+            bottomRight: index.isOdd? const Radius.circular(20):Radius.zero,
+            bottomLeft: index.isEven? const Radius.circular(20):Radius.zero,
           )),
       child: Column(
         children: [
