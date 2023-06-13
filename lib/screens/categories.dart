@@ -5,7 +5,7 @@ import 'package:news/screens/widgets/category_item.dart';
 import '../models/category_model.dart';
 
 class CategoriesScreen extends StatelessWidget {
-
+  static const String routeName="CategoriesScreen";
   Function onCategorySelect;
   CategoriesScreen(this.onCategorySelect);
   var categories = CategoryModel.getCategories();
@@ -30,7 +30,7 @@ class CategoriesScreen extends StatelessWidget {
             ),
             GridView.builder(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, mainAxisSpacing: 20, crossAxisSpacing: 22),
               itemBuilder: (context, index) {
