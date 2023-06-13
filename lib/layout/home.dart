@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:news/models/category_model.dart';
+import 'package:news/provider/provider.dart';
 import 'package:news/screens/categories.dart';
 import 'package:news/screens/news_screen.dart';
+import 'package:news/screens/settings_screen.dart';
 import 'package:news/screens/widgets/drawer_widget.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "HomeScreen";
@@ -15,8 +18,11 @@ class _HomeScreenState extends State<HomeScreen> {
   bool secondary = false;
   bool main = true;
 
+  TextEditingController search=TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    AppProvider? searchProvider=Provider.of<AppProvider>(context);
     return SafeArea(
       child: Scaffold(
         drawer: Visibility(
@@ -29,9 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
           flexibleSpace: Visibility(
             replacement: IconButton(
               onPressed: () {
+                if(categoryModel!=null){
                 secondary = !secondary;
-                main = !main;
-
+                main = !main;}
                 setState(() {});
               },
               icon: Align(
@@ -40,7 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
                   child: Visibility(
-                    visible: main,
+                    visible: categoryModel==null?false:true,
+                    replacement: const SizedBox(),
                     child: const Icon(
                       Icons.search,
                       color: Colors.white,
@@ -55,7 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 40,
                 width: 320,
                 child: TextField(
-                  enabled: secondary,
+                  enabled: true,
+
+                  style: const TextStyle(color: Color(0xFF39A552)),
+                  controller: search,
                   decoration: InputDecoration(
                     prefixIcon: IconButton(
                       onPressed: () {
@@ -71,7 +81,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     suffixIcon:  IconButton(
                       onPressed:(){
-
+                        searchProvider.wantedSearch=search.text;
+                        searchProvider.notifyListeners();
                       },
                       icon: const Icon(Icons.search,
                         color: Color(0xFF39A552),),
@@ -82,9 +93,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderSide: const BorderSide(
                         color: Colors.white,
                         width: 1.5,
+
                       ),
                       borderRadius: BorderRadius.circular(40),
                     ),
+
                     hintText: "Search Article",
                     hintStyle: const TextStyle(
                       color: Color(0x6639A552),
@@ -113,9 +126,10 @@ class _HomeScreenState extends State<HomeScreen> {
               "assets/background.png",
               fit: BoxFit.fill,
             ),
-            categoryModel == null
-                ? CategoriesScreen(onCategorySelected)
-                : NewsScreen(categoryModel!),
+            traveser(),
+            // categoryModel==null
+            //     ? CategoriesScreen(onCategorySelected)
+            //     :NewsScreen(categoryModel!),
           ],
         ),
       ),
@@ -123,6 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   CategoryModel? categoryModel = null;
+   int value=0;
 
   onCategorySelected(category) {
     categoryModel = category;
@@ -131,10 +146,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
   onDrawerClick(int num) {
     if (num == DrawerWidget.category) {
-      categoryModel = null;
-    } else if (num == DrawerWidget.settings) {}
+      categoryModel=null;
+    } else if (num == DrawerWidget.settings) {
+      value=num;
+
+    }
     setState(() {
       Navigator.pop(context);
     });
   }
+
+  Widget traveser()
+  {
+    if(categoryModel==null&&value!=2){
+    return CategoriesScreen(onCategorySelected);}
+    else if(categoryModel!=null&&value!=2)
+      {
+        return NewsScreen(categoryModel!);
+      }
+    else if(value==2)
+      {
+        value=0;
+        return const SettingsScreen();
+      }
+    return CategoriesScreen(onCategorySelected);
+  }
+
 }

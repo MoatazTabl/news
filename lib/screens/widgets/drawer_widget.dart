@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 class DrawerWidget extends StatelessWidget {
   Function onDrawerSelect;
   DrawerWidget(this.onDrawerSelect);
+  
+
 
   static int category=1;
   static int settings=2;
@@ -33,6 +35,7 @@ class DrawerWidget extends StatelessWidget {
            InkWell(
              onTap: (){
                onDrawerSelect(category);
+               // Navigator.pushReplacementNamed(context, SettingsScreen.routeName);
              },
              child: Row(
                children: [
@@ -51,6 +54,10 @@ class DrawerWidget extends StatelessWidget {
            InkWell(
              onTap: (){
                onDrawerSelect(settings);
+
+                 // Navigator.pushNamed(context, SettingsScreen.routeName);
+
+
              },
              child: Row(
                children: [

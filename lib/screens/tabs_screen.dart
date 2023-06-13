@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:news/models/NewsResponse.dart';
+import 'package:news/provider/provider.dart';
 import 'package:news/screens/widgets/news_item.dart';
 import 'package:news/screens/widgets/source_item.dart';
 import 'package:news/shared/network/remote/api_manager.dart';
+import 'package:provider/provider.dart';
 
 import '../models/SourceResponse.dart';
 
@@ -20,6 +22,8 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var searchProvier = Provider.of<AppProvider>(context);
+
     return Column(
       children: [
         DefaultTabController(
@@ -41,14 +45,18 @@ class _TabsScreenState extends State<TabsScreen> {
           ),
         ),
         FutureBuilder<NewsResponse>(
-          future:
-              ApiManager.getNewsData(widget.sources[selectedIndex].id ?? ""),
+          future: ApiManager.getNewsData(
+              sourceId: widget.sources[selectedIndex].id ?? "",
+              searchArticle: searchProvier.wantedSearch??"" ,languageCode: searchProvier.languageCode),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
-                  child: Center(
-                      child:
-                          CircularProgressIndicator(color: Color(0xFF39A552),),),);
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Color(0xFF39A552),
+                  ),
+                ),
+              );
             }
             if (snapshot.hasError) {
               return Column(

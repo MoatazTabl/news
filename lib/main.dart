@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:news/layout/home.dart';
+import 'package:news/provider/provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider<AppProvider>(
+    create: (context) => AppProvider(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -16,9 +20,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: HomeScreen.routeName,
       routes: {
-        HomeScreen.routeName:(c)=>HomeScreen(),
+        HomeScreen.routeName: (c) => HomeScreen(),
       },
     );
   }
 }
-

@@ -5,7 +5,7 @@ import 'package:news/screens/widgets/category_item.dart';
 import '../models/category_model.dart';
 
 class CategoriesScreen extends StatelessWidget {
-
+  static const String routeName="CategoriesScreen";
   Function onCategorySelect;
   CategoriesScreen(this.onCategorySelect);
   var categories = CategoryModel.getCategories();
